@@ -1,0 +1,55 @@
+## Build output
+bin/
+obj/
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+## Playwright
+# Browsers installed locally (never commit these)
+ms-playwright/
+# Traces, videos, screenshots
+playwright-report/
+test-results/
+*.zip
+
+## Reqnroll / SpecFlow
+*.feature.cs
+*.feature.xlsx.cs
+*.feature.json
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## IDE
+.vs/
+.idea/
+*.iml
+
+## Logs
+*.log
+
+## OS junk
+.DS_Store
+Thumbs.db
+
+## NuGet
+packages/
+*.nupkg
+project.lock.json
+artifacts/
+
+## Rider / JetBrains
+.idea/
+*.DotSettings.user
+
+## Visual Studio cache
+.vscode/
+.vscode-test/
+
+## Publish output
+publish/
