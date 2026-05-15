@@ -13,14 +13,19 @@ public class PlaywrightHooks
     [BeforeTestRun]
     public static async Task BeforeTestRun()
     {
+        Console.WriteLine("Starting Playwright setup...");
+
         Playwright = await Microsoft.Playwright.Playwright.CreateAsync();
         Browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
         {
-            Headless = true
+            Headless = true,
+            Args = new[] { "--no-sandbox", "--disable-dev-shm-usage" }
         });
 
         var context = await Browser.NewContextAsync();
         Page = await context.NewPageAsync();
+
+        Console.WriteLine("Playwright Chromium launched successfully.");
     }
 
     [AfterTestRun]
