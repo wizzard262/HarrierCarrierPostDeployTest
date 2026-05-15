@@ -13,11 +13,14 @@ schedules:
 # Pipeline steps
 # ---------------------------------------------------------
 steps:
+- script: mkdir -p $(Build.SourcesDirectory)/TestResults
+  displayName: Create TestResults folder
+
 - task: DotNetCoreCLI@2
   displayName: Run tests with NUnit output
   inputs:
     command: test
-    projects: '**/*Tests.csproj'
+    projects: '**/*HarrierCarrierPostDeployTest.csproj'
     arguments: '--logger "nunit;LogFilePath=$(Build.SourcesDirectory)/TestResults/TestResult.xml"'
 
 - task: PublishTestResults@2
