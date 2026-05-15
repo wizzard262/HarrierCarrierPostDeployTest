@@ -1,0 +1,34 @@
+# ---------------------------------------------------------
+# Run once a day at 7AM UK time, even if no code changed
+# ---------------------------------------------------------
+schedules:
+- cron: "0 7 * * *"
+  displayName: Daily 7AM Run
+  branches:
+    include:
+    - main
+  always: true
+
+
+# ---------------------------------------------------------
+# Publish Playwright report (only if the test run failed)
+# ---------------------------------------------------------
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Playwright Report'
+  condition: failed()
+  inputs:
+    pathToPublish: 'playwright-report'
+    artifactName: 'playwright-report'
+
+
+# ---------------------------------------------------------
+# Send email with test results
+# NOTE: Requires the "SendEmail" extension from Marketplace
+# ---------------------------------------------------------
+- task: SendEmail@1
+  displayName: 'Email Test Results'
+  inputs:
+    To: 'steve@example.com'
+    Subject: 'Daily UI Test Results'
+    Body: 'The daily Playwright/Reqnroll test run has completed. See attached results.'
+    Attachments: '**/*.trx'
