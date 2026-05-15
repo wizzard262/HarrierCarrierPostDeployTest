@@ -9,16 +9,13 @@ schedules:
     - main
   always: true
 
-
 # ---------------------------------------------------------
 # Pipeline steps
 # ---------------------------------------------------------
 steps:
 
-  # Publish Playwright report (only if tests fail)
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Playwright Report'
-    condition: always()
-    inputs:
-      pathToPublish: 'playwright-report'
-      artifactName: 'playwright-report'
+- task: PublishTestResults@2
+  displayName: Publish NUnit Results
+  inputs:
+    testResultsFormat: NUnit
+    testResultsFiles: '**/TestResult*.xml'
