@@ -22,6 +22,9 @@ steps:
 - script: dotnet --info
   displayName: Show dotnet info
 
+- script: pwsh -Command "dotnet tool install --global Microsoft.Playwright.CLI"
+  displayName: Install Playwright CLI
+
 - script: pwsh -Command "playwright install"
   displayName: Install Playwright Browsers
 
