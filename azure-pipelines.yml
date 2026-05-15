@@ -20,7 +20,7 @@ steps:
   displayName: Run tests with TRX output
   inputs:
     command: test
-    projects: 'HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest.csproj'
+    projects: 'HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest.csproj'
     arguments: '--logger "trx;LogFileName=TestResults.trx" --results-directory $(Build.SourcesDirectory)/TestResults'
 
 - task: PublishTestResults@2
