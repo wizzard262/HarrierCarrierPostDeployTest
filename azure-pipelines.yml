@@ -22,10 +22,12 @@ steps:
 - script: dotnet --info
   displayName: Show dotnet info
 
-- script: pwsh -Command "dotnet tool install --global Microsoft.Playwright.CLI"
-  displayName: Install Playwright CLI
+# Build the test project so the Playwright CLI exists
+- script: dotnet build HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest.csproj
+  displayName: Build test project
 
-- script: pwsh -Command "playwright install"
+# Install Playwright browsers using the project-local CLI
+- script: pwsh HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/bin/Debug/net8.0/playwright.ps1 install --with-deps
   displayName: Install Playwright Browsers
 
 - script: mkdir -p $(Build.SourcesDirectory)/TestResults
