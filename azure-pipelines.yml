@@ -11,24 +11,14 @@ schedules:
 
 
 # ---------------------------------------------------------
-# Publish Playwright report (only if the test run failed)
+# Pipeline steps
 # ---------------------------------------------------------
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Playwright Report'
-  condition: failed()
-  inputs:
-    pathToPublish: 'playwright-report'
-    artifactName: 'playwright-report'
+steps:
 
-
-# ---------------------------------------------------------
-# Send email with test results
-# NOTE: Requires the "SendEmail" extension from Marketplace
-# ---------------------------------------------------------
-- task: SendEmail@1
-  displayName: 'Email Test Results'
-  inputs:
-    To: 'steve@example.com'
-    Subject: 'Daily UI Test Results'
-    Body: 'The daily Playwright/Reqnroll test run has completed. See attached results.'
-    Attachments: '**/*.trx'
+  # Publish Playwright report (only if tests fail)
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Playwright Report'
+    condition: failed()
+    inputs:
+      pathToPublish: 'playwright-report'
+      artifactName: 'playwright-report'
