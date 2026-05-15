@@ -13,6 +13,13 @@ schedules:
 # Pipeline steps
 # ---------------------------------------------------------
 steps:
+
+- task: UseDotNet@2
+  displayName: Install .NET 10 SDK
+  inputs:
+    packageType: 'sdk'
+    version: '10.x'
+
 - script: mkdir -p $(Build.SourcesDirectory)/TestResults
   displayName: Create TestResults folder
 
