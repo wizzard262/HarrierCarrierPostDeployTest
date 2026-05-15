@@ -58,8 +58,8 @@ steps:
   displayName: Install Playwright dependencies (Ubuntu 24.04)
 
 # Install Playwright browsers using the project-local CLI
-- script: pwsh HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/bin/Debug/net8.0/playwright.ps1 install
-  displayName: Install Playwright Browsers  
+- script: pwsh HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/bin/Debug/net8.0/playwright.ps1 install chromium
+  displayName: Install Playwright Browsers (Chromium only)
 
 # Create TestResults folder
 - script: mkdir -p $(Build.SourcesDirectory)/TestResults
