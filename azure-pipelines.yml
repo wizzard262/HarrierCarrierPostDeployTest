@@ -14,14 +14,14 @@ schedules:
 # ---------------------------------------------------------
 steps:
 
-# Force .Net version to 8
+# Force .NET version to 8
 - task: UseDotNet@2
   displayName: Install .NET 8 SDK
   inputs:
     packageType: 'sdk'
     version: '8.x'
 
-# check .Net version
+# Show .NET info
 - script: dotnet --info
   displayName: Show dotnet info
 
@@ -29,7 +29,7 @@ steps:
 - script: dotnet build HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest.csproj
   displayName: Build test project
 
-# some Playwright pre-step
+# Install Playwright dependencies for Ubuntu 24.04
 - script: |
     sudo apt-get update
     sudo apt-get install -y \
@@ -55,15 +55,17 @@ steps:
       libxtst6 \
       libx264-164 \
       libffi8
-    displayName: Install Playwright dependencies (Ubuntu 24.04)
+  displayName: Install Playwright dependencies (Ubuntu 24.04)
 
 # Install Playwright browsers using the project-local CLI
 - script: pwsh HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/bin/Debug/net8.0/playwright.ps1 install --with-deps
   displayName: Install Playwright Browsers
 
+# Create TestResults folder
 - script: mkdir -p $(Build.SourcesDirectory)/TestResults
   displayName: Create TestResults folder
 
+# Run tests with TRX output
 - task: DotNetCoreCLI@2
   displayName: Run tests with TRX output
   inputs:
@@ -71,6 +73,7 @@ steps:
     projects: 'HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest.csproj'
     arguments: '--logger "trx;LogFileName=TestResults.trx" --results-directory $(Build.SourcesDirectory)/TestResults'
 
+# Publish TRX results
 - task: PublishTestResults@2
   displayName: Publish TRX Results
   inputs:
