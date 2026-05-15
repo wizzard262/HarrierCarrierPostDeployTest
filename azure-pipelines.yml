@@ -71,7 +71,7 @@ steps:
   inputs:
     command: test
     projects: 'HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest.csproj'
-    arguments: '--logger "trx;LogFileName=TestResults.trx" --results-directory $(Build.SourcesDirectory)/TestResults --blame-crash --blame-crash-dump-type full'
+    arguments: '--logger "trx;LogFileName=TestResults.trx" --results-directory $(Build.SourcesDirectory)/TestResults --blame-crash --blame-crash-dump-type full --blame-crash-collect-always'
   env:
     PLAYWRIGHT_BROWSERS_PATH: $(Build.SourcesDirectory)/.playwright
     PLAYWRIGHT_CHROMIUM_SANDBOX: "0"
