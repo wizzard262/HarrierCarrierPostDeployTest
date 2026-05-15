@@ -13,6 +13,17 @@ schedules:
 # Pipeline steps
 # ---------------------------------------------------------
 steps:
+- task: UseDotNet@2
+  displayName: Install .NET 8 SDK
+  inputs:
+    packageType: 'sdk'
+    version: '8.x'
+
+- script: dotnet --info
+  displayName: Show dotnet info
+
+- script: pwsh -Command "playwright install"
+  displayName: Install Playwright Browsers
 
 - script: mkdir -p $(Build.SourcesDirectory)/TestResults
   displayName: Create TestResults folder
