@@ -61,24 +61,13 @@ steps:
 - script: pwsh HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/bin/Debug/net8.0/playwright.ps1 install chromium
   displayName: Install Playwright Browsers (Chromium only)
 
-# Create TestResults folder
-- script: mkdir -p $(Build.SourcesDirectory)/TestResults
-  displayName: Create TestResults folder
-
-# Run tests with JUnit output and blame crash enabled
+# Run tests with console output (prints results live to pipeline logs)
 - task: DotNetCoreCLI@2
-  displayName: Run tests with JUnit output
+  displayName: Run tests with console output
   inputs:
     command: test
     projects: 'HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest.csproj'
-    arguments: '--logger "junit;LogFileName=TestResults.xml" --results-directory $(Build.SourcesDirectory)/TestResults --blame-crash --blame-crash-dump-type full --blame-crash-collect-always'
+    arguments: '--logger "console;verbosity=detailed"'
   env:
     PLAYWRIGHT_BROWSERS_PATH: $(Build.SourcesDirectory)/.playwright
     PLAYWRIGHT_CHROMIUM_SANDBOX: "0"
-
-# Publish JUnit results
-- task: PublishTestResults@2
-  displayName: Publish JUnit Results
-  inputs:
-    testResultsFormat: JUnit
-    testResultsFiles: '$(Build.SourcesDirectory)/TestResults/TestResults.xml'
