@@ -13,9 +13,15 @@ schedules:
 # Pipeline steps
 # ---------------------------------------------------------
 steps:
+- task: DotNetCoreCLI@2
+  displayName: Run tests with NUnit output
+  inputs:
+    command: test
+    projects: '**/*Tests.csproj'
+    arguments: '--logger "nunit;LogFilePath=$(Build.SourcesDirectory)/TestResults/TestResult.xml"'
 
 - task: PublishTestResults@2
   displayName: Publish NUnit Results
   inputs:
     testResultsFormat: NUnit
-    testResultsFiles: '**/TestResult*.xml'
+    testResultsFiles: '$(Build.SourcesDirectory)/TestResults/TestResult.xml'
