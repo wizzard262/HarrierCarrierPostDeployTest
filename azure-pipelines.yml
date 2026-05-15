@@ -17,14 +17,14 @@ steps:
   displayName: Create TestResults folder
 
 - task: DotNetCoreCLI@2
-  displayName: Run tests with NUnit output
+  displayName: Run tests with TRX output
   inputs:
     command: test
-    projects: '**/*HarrierCarrierPostDeployTest.csproj'
-    arguments: '--logger "nunit;LogFilePath=$(Build.SourcesDirectory)/TestResults/TestResult.xml"'
+    projects: 'HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest.csproj'
+    arguments: '--logger "trx;LogFileName=TestResults.trx" --results-directory $(Build.SourcesDirectory)/TestResults'
 
 - task: PublishTestResults@2
-  displayName: Publish NUnit Results
   inputs:
-    testResultsFormat: NUnit
-    testResultsFiles: '$(Build.SourcesDirectory)/TestResults/TestResult.xml'
+    testResultsFormat: VSTest
+    testResultsFiles: '$(Build.SourcesDirectory)/TestResults/TestResults.trx'
+
