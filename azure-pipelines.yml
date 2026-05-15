@@ -13,12 +13,14 @@ schedules:
 # Pipeline steps
 # ---------------------------------------------------------
 steps:
-
 - task: UseDotNet@2
   displayName: Install .NET 10 SDK
   inputs:
     packageType: 'sdk'
-    version: '10.x'
+    version: '10.0.x'
+
+- script: dotnet --info
+  displayName: Show dotnet info
 
 - script: mkdir -p $(Build.SourcesDirectory)/TestResults
   displayName: Create TestResults folder
@@ -31,7 +33,7 @@ steps:
     arguments: '--logger "trx;LogFileName=TestResults.trx" --results-directory $(Build.SourcesDirectory)/TestResults'
 
 - task: PublishTestResults@2
+  displayName: Publish TRX Results
   inputs:
     testResultsFormat: VSTest
     testResultsFiles: '$(Build.SourcesDirectory)/TestResults/TestResults.trx'
-
