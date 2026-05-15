@@ -14,12 +14,12 @@ schedules:
 # ---------------------------------------------------------
 steps:
 
-# Force .NET version to 8
+# Lock SDK to .NET 8
 - task: UseDotNet@2
   displayName: Install .NET 8 SDK
   inputs:
     packageType: 'sdk'
-    version: '8.x'
+    version: '8.0.x'
 
 # Show .NET info
 - script: dotnet --info
