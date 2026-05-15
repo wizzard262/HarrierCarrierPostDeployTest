@@ -18,7 +18,7 @@ steps:
   # Publish Playwright report (only if tests fail)
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Playwright Report'
-    condition: failed()
+    condition: always()
     inputs:
       pathToPublish: 'playwright-report'
       artifactName: 'playwright-report'
