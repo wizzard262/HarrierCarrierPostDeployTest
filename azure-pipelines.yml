@@ -32,7 +32,7 @@ steps:
 # Install Playwright dependencies for Ubuntu 24.04
 - script: |
     sudo apt-get update
-    sudo apt-get install -y \
+    sudo apt-get install -y --no-install-recommends \
       libasound2t64 \
       libatk1.0-0 \
       libcups2 \
@@ -57,7 +57,7 @@ steps:
       libffi8
   displayName: Install Playwright dependencies (Ubuntu 24.04)
 
-# Install Playwright browsers using the project-local CLI
+# Install Playwright browsers using the project-local CLI (Chromium only)
 - script: pwsh HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/bin/Debug/net8.0/playwright.ps1 install chromium
   displayName: Install Playwright Browsers (Chromium only)
 
@@ -65,13 +65,16 @@ steps:
 - script: mkdir -p $(Build.SourcesDirectory)/TestResults
   displayName: Create TestResults folder
 
-# Run tests with TRX output
+# Run tests with TRX output and blame crash enabled
 - task: DotNetCoreCLI@2
   displayName: Run tests with TRX output
   inputs:
     command: test
     projects: 'HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest.csproj'
-    arguments: '--logger "trx;LogFileName=TestResults.trx" --results-directory $(Build.SourcesDirectory)/TestResults'
+    arguments: '--logger "trx;LogFileName=TestResults.trx" --results-directory $(Build.SourcesDirectory)/TestResults --blame-crash --blame-crash-dump-type full'
+  env:
+    PLAYWRIGHT_BROWSERS_PATH: $(Build.SourcesDirectory)/.playwright
+    PLAYWRIGHT_CHROMIUM_SANDBOX: "0"
 
 # Publish TRX results
 - task: PublishTestResults@2
