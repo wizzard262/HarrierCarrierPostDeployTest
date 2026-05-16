@@ -25,9 +25,10 @@ steps:
 - script: dotnet --info
   displayName: Show dotnet info
 
-# Generate Playwright tool assets (REQUIRED)
-- script: dotnet build HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest.csproj -t:PlaywrightBuild
-  displayName: Generate Playwright tool assets
+# Build Test Product
+- script: dotnet build HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest.csproj
+  displayName: Build test project
+
 
 # Install Playwright dependencies for Ubuntu 24.04
 - script: |
