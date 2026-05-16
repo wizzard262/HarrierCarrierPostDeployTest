@@ -19,6 +19,7 @@
 
 		<!-- Playwright -->
 		<PackageReference Include="Microsoft.Playwright" Version="1.44.0" />
+		<PackageReference Include="Microsoft.Playwright.NUnit" Version="1.44.0" />
 
 		<!-- NUnit -->
 		<PackageReference Include="NUnit" Version="4.3.2" />
@@ -37,5 +38,4 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
-	<Import Project="$(NuGetPackageRoot)microsoft.playwright\1.44.0\build\Microsoft.Playwright.targets" />
 </Project>
