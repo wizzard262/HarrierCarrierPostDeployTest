@@ -19,7 +19,7 @@ public class PlaywrightHooks
         Browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
         {
             Headless = true,
-            Args = new[] { "--no-sandbox", "--disable-dev-shm-usage" }
+            Args = ["--no-sandbox", "--disable-dev-shm-usage"]
         });
 
         var context = await Browser.NewContextAsync();

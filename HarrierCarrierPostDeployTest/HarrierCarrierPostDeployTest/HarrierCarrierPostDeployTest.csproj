@@ -37,4 +37,5 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
+	<Import Project="$(NuGetPackageRoot)microsoft.playwright\1.44.0\build\Microsoft.Playwright.targets" />
 </Project>
