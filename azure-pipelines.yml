@@ -25,9 +25,9 @@ steps:
 - script: dotnet --info
   displayName: Show dotnet info
 
-# Build the test project so the Playwright CLI exists
-- script: dotnet build HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest.csproj
-  displayName: Build test project
+# Generate Playwright tool assets (REQUIRED)
+- script: dotnet build HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest.csproj -t:PlaywrightBuild
+  displayName: Generate Playwright tool assets
 
 # Install Playwright dependencies for Ubuntu 24.04
 - script: |
@@ -69,5 +69,4 @@ steps:
     projects: 'HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest/HarrierCarrierPostDeployTest.csproj'
     arguments: '--logger "console;verbosity=detailed"'
   env:
-    PLAYWRIGHT_BROWSERS_PATH: $(Build.SourcesDirectory)/.playwright
     PLAYWRIGHT_CHROMIUM_SANDBOX: "0"
